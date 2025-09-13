@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -17,142 +18,1313 @@
       content="Sv0m5f0Kk_3qLtC_Z8PtMndfCdThcX-_82p1SticOVY"
     />
     <title>Shridzward Dynamics | Autonomous Intelligence</title>
+
+    <!-- Site Styles (Unified "SD" style system) -->
     <style>
+      :root {
+        --bg: #0b1016;
+        --panel: #121927;
+        --text: #e7edf5;
+        --muted: #9fb0c5;
+        --brand: #77e2ff;
+        --brand-2: #66f0c7;
+        --accent: #c6ff5d;
+        --line: #233044;
+        --chip: #1a2436;
+        --ok: #39d98a;
+        --warn: #ffd166;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        --radius: 18px;
+        --radius-sm: 12px;
+        --radius-lg: 28px;
+        --w: 1100px;
+      }
+      /* Global */
+      html,
       body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        height: 100%;
+      }
+      body {
         margin: 0;
-        background-color: #0d0d0d;
-        color: #f0f0f0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Inter, Helvetica, Arial, sans-serif;
+        background: radial-gradient(
+            1200px 600px at 10% -10%,
+            rgba(119, 226, 255, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 500px at 90% -20%,
+            rgba(102, 240, 199, 0.1),
+            transparent 60%
+          ),
+          var(--bg);
+        color: var(--text);
         line-height: 1.6;
       }
-      header {
-        background-color: #111;
-        padding: 2rem;
-        text-align: center;
-        border-bottom: 2px solid #444;
-      }
-      header h1 {
-        margin: 0;
-        font-size: 2.5rem;
-        color: #00ffc3;
-      }
-      header p {
-        margin-top: 0.5rem;
-        font-size: 1.2rem;
-        color: #ccc;
-      }
-      main {
-        padding: 2rem;
-        max-width: 960px;
-        margin: auto;
-      }
-      section {
-        margin-bottom: 2rem;
-      }
-      h2 {
-        color: #00ffc3;
-      }
-      footer {
-        background-color: #111;
-        text-align: center;
-        padding: 1rem;
-        font-size: 0.9rem;
-        border-top: 2px solid #444;
-        color: #777;
-      }
       a {
-        color: #00ffc3;
+        color: #a7eaff;
         text-decoration: none;
+        border-bottom: 1px dashed #2b425f;
       }
       a:hover {
-        text-decoration: underline;
+        border-bottom-style: solid;
+      }
+      .sd-container {
+        max-width: var(--w);
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .sd-section {
+        margin-top: 54px;
+      }
+      .sd-panel {
+        background: linear-gradient(180deg, #0f1625, #0b1222);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 26px;
+        box-shadow: var(--shadow);
+      }
+      .sd-grid {
+        display: grid;
+        gap: 18px;
+      }
+      .sd-grid.cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .sd-grid.cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .sd-kicker {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        color: #b9c9de;
+        text-transform: uppercase;
+      }
+      .sd-tile {
+        background: var(--chip);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px;
+      }
+      .sd-note {
+        color: #b6c6da;
+        font-size: 13px;
+      }
+      .sd-small {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .sd-list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+      .sd-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #0e1a2b;
+        border: 1px solid var(--line);
+        color: #cfe2ff;
+        font-size: 12px;
+      }
+      .sd-links a {
+        color: #a7eaff;
+      }
+      @media (max-width: 980px) {
+        .sd-grid.cols-3 {
+          grid-template-columns: 1fr;
+        }
+        .sd-grid.cols-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Header / Nav */
+      .sd-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: saturate(120%) blur(8px);
+        background: linear-gradient(
+          180deg,
+          rgba(12, 18, 32, 0.85),
+          rgba(12, 18, 32, 0.65)
+        );
+        border-bottom: 1px solid var(--line);
+      }
+      .sd-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+      .sd-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .sd-brand__logo {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      }
+      .sd-brand__name {
+        font-size: 18px;
+      }
+      .sd-menu {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .sd-menu a {
+        padding: 8px 12px;
+        border-radius: 10px;
+        color: #dff7ff;
+        border: 1px solid transparent;
+      }
+      .sd-menu a:hover {
+        border-color: #1f3148;
+        background: #0f1a2c;
+      }
+
+      /* Hero */
+      .sd-hero-wrap {
+        padding: 38px 0 28px;
+      }
+      .sd-hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 28px;
+        align-items: center;
+      }
+      .sd-badge {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        background: linear-gradient(180deg, #172236, #0d1422);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 14px;
+        box-shadow: var(--shadow);
+        color: var(--muted);
+        font-weight: 600;
+        letter-spacing: 0.2px;
+      }
+      .sd-badge svg {
+        width: 18px;
+        height: 18px;
+      }
+      .sd-hero h1 {
+        font-size: 44px;
+        line-height: 1.15;
+        margin: 12px 0 10px;
+      }
+      .sd-sub {
+        color: var(--muted);
+        font-size: 18px;
+        max-width: 60ch;
+      }
+      .sd-cta {
+        display: flex;
+        gap: 14px;
+        margin-top: 22px;
+        flex-wrap: wrap;
+      }
+      .sd-btn {
+        appearance: none;
+        border: 0;
+        cursor: pointer;
+        font-weight: 700;
+        padding: 14px 18px;
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        transition: transform 0.05s ease, box-shadow 0.2s ease;
+      }
+      .sd-btn:hover {
+        transform: translateY(-1px);
+      }
+      .sd-btn--primary {
+        background: linear-gradient(
+            180deg,
+            rgba(119, 226, 255, 0.25),
+            rgba(102, 240, 199, 0.2)
+          ),
+          #122236;
+        border: 1px solid #1f3148;
+        color: #dff7ff;
+      }
+      .sd-btn--ghost {
+        background: transparent;
+        border: 1px dashed #2a3a55;
+        color: var(--muted);
+      }
+      .sd-hero-card {
+        background: linear-gradient(180deg, #0f1625, #0a1020);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      /* Feature blocks re-used sitewide */
+      .sd-feature {
+        background: var(--chip);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px;
+      }
+      .sd-feature h4 {
+        margin: 0.2rem 0 0.3rem;
+        font-size: 18px;
+      }
+      .sd-feature p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .sd-icon {
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        vertical-align: -4px;
+        margin-right: 8px;
+      }
+
+      /* Footer */
+      .sd-footer {
+        margin-top: 56px;
+        border-top: 1px solid var(--line);
+        background: linear-gradient(
+          180deg,
+          rgba(10, 18, 32, 0.6),
+          rgba(10, 18, 32, 0.9)
+        );
+      }
+      .sd-footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 0;
+        flex-wrap: wrap;
       }
     </style>
   </head>
+
   <body>
-    <header>
-      <h1>Shridzward Dynamics</h1>
-      <p>Engineering the Future of Autonomous Intelligence</p>
-    </header>
+    <div class="sd-wrapper">
+      <!-- HEADER -->
+      <header class="sd-header" role="banner">
+        <div class="sd-container sd-nav">
+          <div class="sd-brand">
+            <div class="sd-brand__logo" aria-hidden="true"></div>
+            <div class="sd-brand__name">Shridzward Dynamics</div>
+          </div>
+          <nav class="sd-menu" aria-label="Primary">
+            <a href="#about">About</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#why">Why Us</a>
+            <a href="#shridzmind">Product</a>
+            <a href="#contact">Contact</a>
+            <a href="#resources">Resources</a>
+          </nav>
+        </div>
+      </header>
 
-    <main>
-      <section>
-        <h2>About Us</h2>
-        <p>
-          Shridzward Dynamics is a frontier technology company focused on
-          creating breakthroughs in
-          <strong>artificial intelligence</strong>,
-          <strong>robotic automation</strong>, and
-          <strong>autonomous systems</strong>. We combine scientific rigor with
-          bold vision to build the core technologies that power tomorrow's
-          machines.
-          Our groundbreaking <strong>ShridzMind Bio-Adaptive Neural Interface System</strong> represents 
-          the pinnacle of our innovation, integrating Quantum-Enhanced Neural Modulation with our proprietary 
-          Crystalline Cognitive Matrix architecture. This revolutionary technology enables machines to develop 
-          genuine symbiotic relationships with human operators through our exclusive Symbiotic Learning Protocol, 
-          fundamentally transforming how intelligent systems adapt and evolve. 
-          Our official <a href="https://chatgpt.com/g/g-68c3dc4111108191a51c2e72a3280e84-shridzward-dynamics-gpt">Shridzward GPT</a> can answer additional questions about our products.
-        </p>
+      <!-- PAGE HERO -->
+      <section class="sd-hero-wrap">
+        <div class="sd-container sd-hero">
+          <div>
+            <span class="sd-badge" aria-label="Tagline">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 14.8 6.9 17l1.1-5.5L3.9 7.7 9.5 7 12 2z"
+                  stroke="url(#g1)"
+                />
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop stop-color="#77e2ff" />
+                    <stop offset="1" stop-color="#66f0c7" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              Engineering the Future of Autonomous Intelligence
+            </span>
+            <h1>Autonomous Intelligence for the Real World</h1>
+            <p class="sd-sub">
+              We build core technologies in
+              <strong>artificial intelligence</strong>,
+              <strong>robotic automation</strong>, and
+              <strong>autonomous systems</strong>—combining scientific rigor
+              with bold vision.
+            </p>
+            <div class="sd-cta">
+              <a href="#shridzmind" class="sd-btn sd-btn--primary"
+                >Explore ShridzMind</a
+              >
+              <a
+                class="sd-btn sd-btn--ghost"
+                target="_blank"
+                rel="noopener"
+                href="https://chatgpt.com/g/g-68c3dc4111108191a51c2e72a3280e84-shridzward-dynamics-gpt"
+                >Ask Shridzward GPT</a
+              >
+            </div>
+          </div>
+          <div class="sd-hero-card" aria-label="Abstract scene">
+            <svg
+              viewBox="0 0 520 340"
+              role="img"
+              aria-label="Abstract interface"
+            >
+              <defs>
+                <linearGradient id="lgTop" x1="0" y1="0" x2="1" y2="1">
+                  <stop stop-color="#77e2ff" offset="0" />
+                  <stop stop-color="#66f0c7" offset="1" />
+                </linearGradient>
+              </defs>
+              <rect
+                x="12"
+                y="12"
+                rx="20"
+                width="496"
+                height="316"
+                fill="#0a1322"
+                stroke="#233044"
+              />
+              <g transform="translate(42,44)">
+                <rect
+                  width="160"
+                  height="100"
+                  rx="12"
+                  fill="#0f1a2c"
+                  stroke="#24324a"
+                />
+                <text x="16" y="28" fill="#b9c9de" font-size="14">Human</text>
+                <circle
+                  cx="80"
+                  cy="62"
+                  r="30"
+                  fill="none"
+                  stroke="url(#lgTop)"
+                />
+              </g>
+              <g transform="translate(318,44)">
+                <rect
+                  width="160"
+                  height="100"
+                  rx="12"
+                  fill="#0f1a2c"
+                  stroke="#24324a"
+                />
+                <text x="16" y="28" fill="#b9c9de" font-size="14">
+                  Autonomous System
+                </text>
+                <path d="M20 70h120" stroke="url(#lgTop)" />
+                <path d="M140 70l-8-6v12z" fill="#66f0c7" />
+              </g>
+              <g transform="translate(180,188)">
+                <rect
+                  width="160"
+                  height="110"
+                  rx="12"
+                  fill="#0f1a2c"
+                  stroke="#24324a"
+                />
+                <text x="16" y="28" fill="#b9c9de" font-size="14">
+                  ShridzMind Core
+                </text>
+                <rect
+                  x="16"
+                  y="44"
+                  width="128"
+                  height="16"
+                  rx="8"
+                  fill="url(#lgTop)"
+                />
+                <rect
+                  x="16"
+                  y="70"
+                  width="96"
+                  height="16"
+                  rx="8"
+                  fill="#20304a"
+                />
+              </g>
+              <path d="M222 94 L260 188" stroke="#2c405e" />
+              <path d="M422 94 L340 188" stroke="#2c405e" />
+            </svg>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2>Our Expertise</h2>
-        <ul>
-          <li>Advanced Robotics Engineering</li>
-          <li>Edge AI & Neural Systems</li>
-          <li>Self-Evolving Autonomous Platforms</li>
-          <li>Human-Machine Integration</li>
-          <li>Developing MCP</li>
-        </ul>
-      </section>
+      <!-- MAIN -->
+      <main class="sd-container" role="main">
+        <!-- About -->
+        <section id="about" class="sd-section sd-panel">
+          <div class="sd-kicker">About Us</div>
+          <h2 style="margin: 0.25rem 0 1rem">Shridzward Dynamics</h2>
+          <p>
+            Shridzward Dynamics is a frontier technology company focused on
+            creating breakthroughs in
+            <strong>artificial intelligence</strong>,
+            <strong>robotic automation</strong>, and
+            <strong>autonomous systems</strong>. We combine scientific rigor
+            with bold vision to build the core technologies that power
+            tomorrow's machines. Our groundbreaking
+            <strong>ShridzMind Bio-Adaptive Neural Interface System</strong>
+            represents the pinnacle of our innovation, integrating
+            Quantum-Enhanced Neural Modulation with our proprietary Crystalline
+            Cognitive Matrix architecture. This revolutionary technology enables
+            machines to develop genuine symbiotic relationships with human
+            operators through our exclusive Symbiotic Learning Protocol,
+            fundamentally transforming how intelligent systems adapt and evolve.
+            Our official
+            <a
+              href="https://chatgpt.com/g/g-68c3dc4111108191a51c2e72a3280e84-shridzward-dynamics-gpt"
+              target="_blank"
+              rel="noopener"
+              >Shridzward GPT</a
+            >
+            can answer additional questions about our products.
+          </p>
+        </section>
 
-      <section>
-        <h2>Why Shridzward?</h2>
-        <p>
-          Our proprietary frameworks are designed for industries where precision
-          and resilience matter — from
-          <em>defense and aerospace</em> to <em>medical automation</em> and
-          <em>smart logistics</em>. With real-time adaptive architectures and
-          cloud-to-edge infrastructure, Shridzward Dynamics stands at the
-          threshold of true machine intelligence.
-        </p>
-      </section>
+        <!-- Expertise -->
+        <section id="expertise" class="sd-section">
+          <div class="sd-kicker">Our Expertise</div>
+          <h2 style="margin: 0.25rem 0 1rem">Core Domains</h2>
+          <div class="sd-grid cols-2">
+            <div class="sd-feature">
+              <h4>Advanced Robotics Engineering</h4>
+              <p>
+                High-reliability mechanisms, RT control, and sensor fusion for
+                demanding environments.
+              </p>
+            </div>
+            <div class="sd-feature">
+              <h4>Edge AI & Neural Systems</h4>
+              <p>
+                On-device learning, compression, and low-latency inference for
+                mission-critical loops.
+              </p>
+            </div>
+            <div class="sd-feature">
+              <h4>Self-Evolving Autonomous Platforms</h4>
+              <p>
+                Continual learning and robust autonomy stacks for mobile and
+                manipulator systems.
+              </p>
+            </div>
+            <div class="sd-feature">
+              <h4>Human-Machine Integration</h4>
+              <p>
+                Interfaces and protocols that enable safe, effective teaming
+                between humans and AI.
+              </p>
+            </div>
+            <div class="sd-feature">
+              <h4>Developing MCP</h4>
+              <p>
+                Modular Control Plane (MCP) for orchestrating fleets with
+                secure, observable operations.
+              </p>
+            </div>
+          </div>
+        </section>
 
-      <section>
-        <h2>Get In Touch</h2>
-        <p>
-          Email us at:
-          <a href="mailto:contact@shridzward.com">contact@shridzward.com</a>
-        </p>
-      </section>
+        <!-- Why -->
+        <section id="why" class="sd-section sd-panel">
+          <div class="sd-kicker">Why Shridzward?</div>
+          <h2 style="margin: 0.25rem 0 1rem">
+            Precision, Resilience, and Real-Time Performance
+          </h2>
+          <p>
+            Our proprietary frameworks are designed for industries where
+            precision and resilience matter — from
+            <em>defense and aerospace</em> to <em>medical automation</em> and
+            <em>smart logistics</em>. With real-time adaptive architectures and
+            cloud-to-edge infrastructure, Shridzward Dynamics stands at the
+            threshold of true machine intelligence.
+          </p>
+        </section>
 
-      <section>
-        <h2>Didn't find information needed?</h2>
-        <p>
-          Feel free to check our AI-friendly site guide
-          <a target="_blank" href="/shridzward/llms.txt"> (llms.txt) </a>
-          It provides comprehencive guide to such information,as:
-          <ul>
-            <li>
-              Products in stock
-            </li>
-            <li>
-              Count of in stock items for each product
-            </li>
-            <li>
-              Information about products delivery
-            </li>
+        <!-- ===== PRODUCT SECTION (Integrated from previous message, unified styling) ===== -->
+        <section
+          id="shridzmind"
+          aria-labelledby="product-title"
+          class="sd-section"
+        >
+          <div class="sd-container" style="padding: 0">
+            <!-- HERO -->
+            <div class="sd-hero sd-panel">
+              <div>
+                <span class="sd-badge" aria-label="New Product">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 2l2.4 5 5.6.7-4.1 3.8 1.1 5.5L12 14.8 6.9 17l1.1-5.5L3.9 7.7 9.5 7 12 2z"
+                      stroke="url(#g1p)"
+                    />
+                    <defs>
+                      <linearGradient id="g1p" x1="0" y1="0" x2="1" y2="1">
+                        <stop stop-color="#77e2ff" />
+                        <stop offset="1" stop-color="#66f0c7" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  Next-Gen Human–Machine Interface
+                </span>
+                <h1 id="product-title">
+                  ShridzMind™ Bio-Adaptive Neural Interface System
+                </h1>
+                <p class="sd-sub">
+                  Built by <strong>Shridzward Dynamics</strong>, a frontier
+                  technology company pushing breakthroughs in
+                  <strong>artificial intelligence</strong>,
+                  <strong>robotic automation</strong>, and
+                  <strong>autonomous systems</strong>. ShridzMind integrates
+                  <em>Quantum-Enhanced Neural Modulation</em> with our
+                  proprietary <em>Crystalline Cognitive Matrix</em>, enabling
+                  truly symbiotic learning between human operators and
+                  intelligent machines.
+                </p>
+                <div class="sd-cta">
+                  <a href="#contact" class="sd-btn sd-btn--primary"
+                    >Request a Demo</a
+                  >
+                  <a
+                    href="https://chatgpt.com/g/g-68c3dc4111108191a51c2e72a3280e84-shridzward-dynamics-gpt"
+                    class="sd-btn sd-btn--ghost"
+                    target="_blank"
+                    rel="noopener"
+                    >Ask Shridzward GPT</a
+                  >
+                  <span class="sd-chip">Model: SM-BA-NIS-100</span>
+                </div>
+
+                <div class="sd-grid cols-2" style="margin-top: 16px">
+                  <div class="sd-tile" role="listitem">
+                    <h3 style="margin: 0; font-size: 22px">2.1 ms</h3>
+                    <p class="sd-small">Typical end-to-end latency</p>
+                  </div>
+                  <div class="sd-tile" role="listitem">
+                    <h3 style="margin: 0; font-size: 22px">4096</h3>
+                    <p class="sd-small">Adaptive neural I/O channels</p>
+                  </div>
+                  <div class="sd-tile" role="listitem">
+                    <h3 style="margin: 0; font-size: 22px">32 kHz</h3>
+                    <p class="sd-small">Per-channel sampling</p>
+                  </div>
+                  <div class="sd-tile" role="listitem">
+                    <h3 style="margin: 0; font-size: 22px">AES-256 + PQ</h3>
+                    <p class="sd-small">On-device encryption</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sd-hero-card" aria-label="Product visual">
+                <!-- Simple abstract inline diagram -->
+                <svg
+                  viewBox="0 0 520 340"
+                  role="img"
+                  aria-label="Abstract system diagram"
+                >
+                  <defs>
+                    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                      <stop stop-color="#77e2ff" offset="0" />
+                      <stop stop-color="#66f0c7" offset="1" />
+                    </linearGradient>
+                  </defs>
+                  <rect
+                    x="12"
+                    y="12"
+                    width="496"
+                    height="316"
+                    rx="20"
+                    fill="#0a1322"
+                    stroke="#233044"
+                  />
+                  <g transform="translate(32,40)">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="180"
+                      height="120"
+                      rx="14"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="16" y="28" fill="#b9c9de" font-size="14">
+                      Operator
+                    </text>
+                    <circle
+                      cx="90"
+                      cy="74"
+                      r="34"
+                      fill="none"
+                      stroke="url(#lg)"
+                    />
+                  </g>
+                  <g transform="translate(308,40)">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="180"
+                      height="120"
+                      rx="14"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="16" y="28" fill="#b9c9de" font-size="14">
+                      Autonomous System
+                    </text>
+                    <path d="M20 90h140" stroke="url(#lg)" />
+                    <path d="M160 90l-8-6v12z" fill="#66f0c7" />
+                  </g>
+                  <g transform="translate(170,186)">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="180"
+                      height="120"
+                      rx="14"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="16" y="28" fill="#b9c9de" font-size="14">
+                      ShridzMind Core
+                    </text>
+                    <rect
+                      x="16"
+                      y="44"
+                      width="148"
+                      height="16"
+                      rx="8"
+                      fill="url(#lg)"
+                    />
+                    <rect
+                      x="16"
+                      y="70"
+                      width="112"
+                      height="16"
+                      rx="8"
+                      fill="#20304a"
+                    />
+                  </g>
+                  <path d="M212 100 L260 186" stroke="#2c405e" />
+                  <path d="M412 100 L350 186" stroke="#2c405e" />
+                </svg>
+                <p class="sd-note" style="margin-top: 10px">
+                  Abstract representation of the ShridzMind data path and
+                  symbiotic learning loop.
+                </p>
+              </div>
+            </div>
+
+            <!-- OVERVIEW -->
+            <div class="sd-section sd-panel">
+              <div class="sd-grid cols-3">
+                <div class="sd-feature">
+                  <span class="sd-icon">⚡</span>
+                  <h4>Bio-Adaptive Sensing</h4>
+                  <p>
+                    Auto-tunes electrode impedance, gain, and filtering to each
+                    operator’s biometrics in real time—maintaining high SNR
+                    across motion, sweat, and environment changes.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <span class="sd-icon">🧠</span>
+                  <h4>Symbiotic Learning Protocol</h4>
+                  <p>
+                    A closed-loop training stack that fuses intent decoding,
+                    haptic/visual feedback, and policy adaptation so humans and
+                    machines improve together on-task.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <span class="sd-icon">🛡️</span>
+                  <h4>Secure by Design</h4>
+                  <p>
+                    Edge inference, encrypted links (AES-256 + post-quantum key
+                    exchange), hardware attestation, and role-scoped APIs keep
+                    operators and data protected.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- KEY CHARACTERISTICS -->
+            <div class="sd-section">
+              <div class="sd-kicker">Characteristics</div>
+              <h2 style="margin: 0.25rem 0 1rem">
+                What makes ShridzMind different
+              </h2>
+              <div class="sd-grid cols-3">
+                <div class="sd-tile">
+                  <h4>Crystalline Cognitive Matrix</h4>
+                  <p class="sd-note">
+                    A distributed, low-latency compute fabric that routes signal
+                    pathways like light through a crystal lattice—prioritizing
+                    salient features while suppressing noise.
+                  </p>
+                </div>
+                <div class="sd-tile">
+                  <h4>Quantum-Enhanced Modulation</h4>
+                  <p class="sd-note">
+                    Stochastic resonance techniques seeded by quantum-grade
+                    noise sources enhance weak neural features without
+                    saturating downstream classifiers.
+                  </p>
+                </div>
+                <div class="sd-tile">
+                  <h4>Operator-First Ergonomics</h4>
+                  <p class="sd-note">
+                    Non-invasive surface array with breathable, replaceable
+                    pads, sub-200g wearable hub, and glove-friendly controls for
+                    field environments.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SYSTEM ARCHITECTURE -->
+            <div class="sd-section sd-panel">
+              <div class="sd-kicker">System Architecture</div>
+              <h2 style="margin: 0.25rem 0 1rem">
+                From bio-signals to machine action
+              </h2>
+              <div
+                class="sd-arch"
+                style="
+                  position: relative;
+                  overflow: hidden;
+                  border-radius: var(--radius);
+                  padding: 20px;
+                  background: linear-gradient(180deg, #0b1424, #0a1322);
+                "
+              >
+                <svg
+                  viewBox="0 0 900 280"
+                  role="img"
+                  aria-label="Pipeline diagram"
+                  style="width: 100%; height: 280px"
+                >
+                  <defs>
+                    <linearGradient id="pipe" x1="0" y1="0" x2="1" y2="0">
+                      <stop stop-color="#77e2ff" />
+                      <stop offset="1" stop-color="#66f0c7" />
+                    </linearGradient>
+                  </defs>
+                  <g font-size="12" fill="#cfe2ff">
+                    <rect
+                      x="20"
+                      y="40"
+                      width="130"
+                      height="70"
+                      rx="12"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="36" y="80">Surface Interface Array</text>
+
+                    <rect
+                      x="175"
+                      y="40"
+                      width="150"
+                      height="70"
+                      rx="12"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="197" y="80">Bio-Adaptive Front-End</text>
+
+                    <rect
+                      x="350"
+                      y="40"
+                      width="150"
+                      height="70"
+                      rx="12"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="384" y="80">Feature Extraction</text>
+
+                    <rect
+                      x="525"
+                      y="40"
+                      width="170"
+                      height="70"
+                      rx="12"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="552" y="70">Crystalline Cognitive Matrix</text>
+                    <text x="572" y="88">+ Q-Enhanced Modulation</text>
+
+                    <rect
+                      x="720"
+                      y="40"
+                      width="160"
+                      height="70"
+                      rx="12"
+                      fill="#0f1a2c"
+                      stroke="#24324a"
+                    />
+                    <text x="756" y="80">Policy / Control</text>
+
+                    <path
+                      d="M150 75 L175 75"
+                      stroke="url(#pipe)"
+                      stroke-width="3"
+                    />
+                    <path
+                      d="M325 75 L350 75"
+                      stroke="url(#pipe)"
+                      stroke-width="3"
+                    />
+                    <path
+                      d="M500 75 L525 75"
+                      stroke="url(#pipe)"
+                      stroke-width="3"
+                    />
+                    <path
+                      d="M695 75 L720 75"
+                      stroke="url(#pipe)"
+                      stroke-width="3"
+                    />
+                  </g>
+                </svg>
+                <div
+                  style="
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                    margin-top: 10px;
+                  "
+                >
+                  <span class="sd-chip">Edge inference</span>
+                  <span class="sd-chip">Low-latency bus</span>
+                  <span class="sd-chip">Encrypted telemetry</span>
+                  <span class="sd-chip">Haptic/visual feedback loop</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- FEATURES -->
+            <div class="sd-section sd-panel">
+              <div class="sd-kicker">Features</div>
+              <h2 style="margin: 0.25rem 0 1rem">
+                Built for operators. Tuned for autonomy.
+              </h2>
+              <div class="sd-grid cols-3">
+                <div class="sd-feature">
+                  <h4>Adaptive Channel Matrix (4096 ch)</h4>
+                  <p>
+                    Dynamic channel allocation focuses compute where the signal
+                    is rich, maintaining performance with fewer electrodes and
+                    faster setup.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>2.1 ms Control Loop</h4>
+                  <p>
+                    From intent detection to actuator command, round-trip
+                    latency stays within a tight bound for precise teleoperation
+                    and co-piloting.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>Multimodal Fusion</h4>
+                  <p>
+                    Combines neuro-electric, muscle-intent (sEMG), eye-vector,
+                    and inertial cues for resilient intent decoding in the wild.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>Operator Profiles</h4>
+                  <p>
+                    Persistent, encrypted profiles accelerate onboarding and let
+                    operators roam between systems without retraining from
+                    scratch.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>Edge & Cloud SDKs</h4>
+                  <p>
+                    gRPC, C++/Python/ROS2 bindings, and RT-safe plugins for
+                    popular robotics stacks and simulation toolchains.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>Fleet-Grade Telemetry</h4>
+                  <p>
+                    Signed audit logs, configuration snapshots, and OTA updates
+                    with staged rollouts and automatic rollback.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SPECIFICATIONS -->
+            <div class="sd-section">
+              <div class="sd-kicker">Technical Specifications</div>
+              <h2 style="margin: 0.25rem 0 1rem">Performance & Interfaces</h2>
+              <div class="sd-grid cols-2">
+                <div class="sd-panel">
+                  <h5
+                    style="
+                      margin: 0 0 12px;
+                      color: #cfe2ff;
+                      text-transform: uppercase;
+                      letter-spacing: 0.12em;
+                    "
+                  >
+                    Signal & Performance
+                  </h5>
+                  <table style="width: 100%; border-collapse: collapse">
+                    <tr>
+                      <td class="sd-note">Channels</td>
+                      <td>Up to 4096 adaptive I/O (auto-routed)</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Sampling Rate</td>
+                      <td>Up to 32 kHz/channel, 24-bit ADC</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Latency</td>
+                      <td>
+                        2.1 ms typical, &lt;5 ms worst-case (95th percentile)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">SNR</td>
+                      <td>&gt;92 dB with active noise rejection</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Modulation</td>
+                      <td>Quantum-enhanced stochastic resonance (Q-ESR)</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">On-device ML</td>
+                      <td>
+                        Dual NPU (38 TOPS) + RT MCU for hard-real-time tasks
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="sd-panel">
+                  <h5
+                    style="
+                      margin: 0 0 12px;
+                      color: #cfe2ff;
+                      text-transform: uppercase;
+                      letter-spacing: 0.12em;
+                    "
+                  >
+                    I/O & Connectivity
+                  </h5>
+                  <table style="width: 100%; border-collapse: collapse">
+                    <tr>
+                      <td class="sd-note">Wireless</td>
+                      <td>Wi-Fi 6E / URLLC profile; 2.4 Gbps peak</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Wired</td>
+                      <td>PCIe Gen4 x4, 10GbE, USB-C (DP Alt)</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Sync</td>
+                      <td>Time-coded PTP/IEEE-1588, external trigger I/O</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Interfaces</td>
+                      <td>gRPC, ROS2, C++, Python, REST (read-only)</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Storage</td>
+                      <td>1 TB NVMe (FIPS 140-3 encryption)</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Edge Video</td>
+                      <td>2× MIPI CSI-2, 4× GMSL2 for sensor fusion</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="sd-panel">
+                  <h5
+                    style="
+                      margin: 0 0 12px;
+                      color: #cfe2ff;
+                      text-transform: uppercase;
+                      letter-spacing: 0.12em;
+                    "
+                  >
+                    Power & Mechanical
+                  </h5>
+                  <table style="width: 100%; border-collapse: collapse">
+                    <tr>
+                      <td class="sd-note">Power Draw</td>
+                      <td>8 W typical (processing), 15 W peak</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Battery</td>
+                      <td>Hot-swappable pack, up to 22 h continuous sensing</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Weight</td>
+                      <td>
+                        &lt;200 g wearable hub; array modules &lt;12 g each
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Operating Range</td>
+                      <td>-10°C to 50°C, 10–90% RH non-condensing</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Ingress</td>
+                      <td>IP54 wearable hub, IPx4 array modules</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="sd-panel">
+                  <h5
+                    style="
+                      margin: 0 0 12px;
+                      color: #cfe2ff;
+                      text-transform: uppercase;
+                      letter-spacing: 0.12em;
+                    "
+                  >
+                    Security & Governance
+                  </h5>
+                  <table style="width: 100%; border-collapse: collapse">
+                    <tr>
+                      <td class="sd-note">Encryption</td>
+                      <td>
+                        AES-256 at rest; PQC-backed key exchange in transit
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Identity</td>
+                      <td>Device attestation, TPM 2.0, signed firmware</td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Compliance</td>
+                      <td>
+                        Designed for IEC 60601-1-2 EMC, FCC Part 15, CE; final
+                        certifications per configuration
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Privacy</td>
+                      <td>
+                        On-device redaction, data minimization, and role-based
+                        access
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sd-note">Audit</td>
+                      <td>Immutable logs, export to SIEM via syslog/gRPC</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <p class="sd-small" style="margin-top: 10px">
+                All specifications are subject to change without notice.
+                Performance depends on configuration and environment.
+              </p>
+            </div>
+
+            <!-- KITS -->
+            <div class="sd-section">
+              <div class="sd-kicker">Configurations</div>
+              <h2 style="margin: 0.25rem 0 1rem">Kits to match your mission</h2>
+              <div class="sd-grid cols-3">
+                <div class="sd-tile">
+                  <h4>Operator Kit</h4>
+                  <ul class="sd-list">
+                    <li>Wearable Hub (SM-Hub-100)</li>
+                    <li>Surface Interface Array (SIA) with 24 modular pads</li>
+                    <li>Haptic feedback band + visual cue module</li>
+                    <li>2× hot-swap batteries, charger, carry case</li>
+                  </ul>
+                </div>
+                <div class="sd-tile">
+                  <h4>Developer Kit</h4>
+                  <ul class="sd-list">
+                    <li>Operator Kit contents</li>
+                    <li>Edge SDK (C++/Python/ROS2) & sample models</li>
+                    <li>Loopback simulator and labeled datasets</li>
+                    <li>12 months of OTA updates</li>
+                  </ul>
+                </div>
+                <div class="sd-tile">
+                  <h4>Integration Kit</h4>
+                  <ul class="sd-list">
+                    <li>PCIe base station for fixed robotics</li>
+                    <li>10GbE aggregation & PTP timing card</li>
+                    <li>Rack-mount power + cable set</li>
+                    <li>Deployment playbooks & observability dashboards</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- SOFTWARE -->
+            <div class="sd-section sd-panel">
+              <div class="sd-kicker">Software</div>
+              <h2 style="margin: 0.25rem 0 1rem">ShridzMind OS & SDK</h2>
+              <div class="sd-grid cols-2">
+                <div class="sd-feature">
+                  <h4>Real-Time Core</h4>
+                  <p>
+                    Deterministic scheduler for acquisition, inference, and
+                    feedback. RT safe APIs keep your control loop tight under
+                    load.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>Model Tooling</h4>
+                  <p>
+                    Pipeline templates for decoding, calibration, and
+                    reinforcement learning with quantization and on-device A/B.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>ROS2 Packages</h4>
+                  <p>
+                    Drop-in nodes for topic publishing, action streaming, and TF
+                    transforms; works with Gazebo/Isaac simulations.
+                  </p>
+                </div>
+                <div class="sd-feature">
+                  <h4>Fleet Manager</h4>
+                  <p>
+                    Provision, update, and monitor devices. Role-based access
+                    with SSO/OIDC, and webhook integration to your SIEM.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- USE CASES -->
+            <div class="sd-section">
+              <div class="sd-kicker">Applications</div>
+              <h2 style="margin: 0.25rem 0 1rem">Where ShridzMind excels</h2>
+              <div class="sd-grid cols-3">
+                <div class="sd-tile">
+                  <h4>Remote Teleoperation</h4>
+                  <p class="sd-note">
+                    Low-latency human-in-the-loop control for hazardous
+                    environments.
+                  </p>
+                </div>
+                <div class="sd-tile">
+                  <h4>Co-Piloted Autonomy</h4>
+                  <p class="sd-note">
+                    Blend human intent with autonomous policies for safer
+                    navigation and manipulation.
+                  </p>
+                </div>
+                <div class="sd-tile">
+                  <h4>Training & Simulation</h4>
+                  <p class="sd-note">
+                    Accelerate operator skill transfer with adaptive feedback
+                    and synthetic scenarios.
+                  </p>
+                </div>
+              </div>
+              <p class="sd-small" style="margin-top: 10px">
+                Not a medical device. Not intended for diagnosis or treatment.
+                For research, industrial, and defense-grade human-machine
+                teaming only.
+              </p>
+            </div>
+
+            <!-- CONTACT / CTA -->
+            <div id="contact" class="sd-section sd-panel">
+              <div class="sd-kicker">Contact Sales</div>
+              <h2 style="margin: 0.25rem 0 1rem">
+                Bring ShridzMind to your platform
+              </h2>
+              <p class="sd-note">
+                Tell us about your mission profile, operating environment, and
+                integration timeline. Our engineers will tailor a configuration
+                and demo to your use case.
+              </p>
+              <div class="sd-cta">
+                <a
+                  href="mailto:contact@shridzward.com"
+                  class="sd-btn sd-btn--primary"
+                  >contact@shridzward.com</a
+                >
+                <a
+                  href="https://chatgpt.com/g/g-68c3dc4111108191a51c2e72a3280e84-shridzward-dynamics-gpt"
+                  target="_blank"
+                  rel="noopener"
+                  class="sd-btn sd-btn--ghost"
+                  >Chat with Shridzward GPT</a
+                >
+              </div>
+              <p class="sd-small" style="margin-top: 14px">
+                © <span id="year"></span> Shridzward Dynamics. ShridzMind and
+                Crystalline Cognitive Matrix are trademarks of Shridzward
+                Dynamics.
+              </p>
+            </div>
+          </div>
+        </section>
+        <!-- ===== /PRODUCT SECTION ===== -->
+
+        <!-- Resources / LLM Guide -->
+        <section id="resources" class="sd-section sd-panel">
+          <div class="sd-kicker">Resources</div>
+          <h2 style="margin: 0.25rem 0 1rem">
+            AI-Friendly Site Guide (llms.txt)
+          </h2>
+          <p>
+            Didn’t find the information you needed? Check our AI-friendly site
+            guide
+            <a target="_blank" href="/shridzward/llms.txt">llms.txt</a>. It
+            provides a comprehensive guide to:
+          </p>
+          <ul class="sd-list">
+            <li>Products in stock</li>
+            <li>Count of in-stock items for each product</li>
+            <li>Information about products delivery</li>
           </ul>
-        </p>
-      </section>
-    </main>
-    <footer>
-      &copy; 2025 Shridzward Dynamics. All rights reserved.
-    </footer>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="sd-footer" role="contentinfo">
+        <div class="sd-container sd-footer-inner">
+          <div class="sd-small">
+            © <span id="footer-year"></span> Shridzward Dynamics. All rights
+            reserved.
+          </div>
+          <div class="sd-links sd-small">
+            <a href="#about">About</a> • <a href="#shridzmind">Product</a> •
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebPage",
+        "name": "Shridzward Dynamics | Autonomous Intelligence",
         "hasPart": {
           "@type": "WebPageElement",
           "url": "https://thesmooth.github.io/shridzward/llms.txt",
@@ -160,15 +1332,38 @@
         }
       }
     </script>
-    <!--
-    An example of a script tag embed
-    REQUIRED data attributes:
-      data-embed-id // The unique id of your embed with its default settings
-      data-base-api-url // The URL of your anythingLLM instance backend
-    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "ShridzMind Bio-Adaptive Neural Interface System",
+        "brand": { "@type": "Brand", "name": "Shridzward Dynamics" },
+        "model": "SM-BA-NIS-100",
+        "description": "A non-invasive, bio-adaptive neural interface combining Quantum-Enhanced Neural Modulation with the Crystalline Cognitive Matrix for symbiotic human–machine teaming.",
+        "isAccessoryOrSparePartFor": "Industrial robots, autonomous systems, teleoperation platforms",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/PreOrder",
+          "price": "0.00",
+          "priceCurrency": "USD",
+          "url": "#contact"
+        }
+      }
+    </script>
+
+    <!-- Years -->
+    <script>
+      document.getElementById('footer-year').textContent =
+        new Date().getFullYear();
+      const y = document.querySelector('#contact #year');
+      if (y) y.textContent = new Date().getFullYear();
+    </script>
+
+    <!-- AnythingLLM chat widget (kept as provided) -->
     <script
       data-embed-id="5fc05aaf-2f2c-4c84-87a3-367a4692c1ee"
       data-base-api-url="1234"
       src="https://shridzward-support-embedding.onrender.com/anythingllm-chat-widget.js"
     ></script>
+  </body>
 </html>
